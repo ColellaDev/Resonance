@@ -1,16 +1,18 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { TextField, Button, Box, Typography, Paper} from "@mui/material";
+import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
-  email: z.string().email("Digite um e-mail válido"),
+  nick: z.string().min(3, "O nick deve ter pelo menos 3 caracteres"),
   password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,53 +22,50 @@ export function Login() {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log("Login realizado:", data);
+    try {
+        console.log("Usuário logado:", data);
+        navigate("/home");
+      } catch (error) {
+        console.error("Erro ao cadastrar usuário:", error);
+      }
   };
 
   return (
     <Box
       component={Paper}
-      elevation={3}
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         maxWidth: 400,
         margin: "auto",
-        padding: 3,
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        mt: 6,
+        mt: 4,
+        p: 3,
+        boxShadow: 3,
+        borderRadius: 2,
       }}
     >
-        <Box sx={{ width: 100, height: 100, alignSelf: "center"}}>
-        <img 
-          src="/src/assets/ResonanceLogo.jpg"
-          alt="Logo da Resonance"
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
-        />
-      </Box>
-      <Typography variant="h5" color="text.primary" textAlign="center">
+      <Typography variant="h5" textAlign="center">
         Login
       </Typography>
 
       <TextField
-        label="E-mail"
-        type="email"
-        fullWidth
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
+        label="Nick do Main"
+        {...register("nick")}
+        error={!!errors.nick}
+        helperText={errors.nick?.message}
       />
 
       <TextField
         label="Senha"
         type="password"
-        fullWidth
         {...register("password")}
         error={!!errors.password}
         helperText={errors.password?.message}
       />
 
-      <Button variant="contained" color="primary" fullWidth onClick={handleSubmit(onSubmit)}>
+      <Button variant="contained" type="submit">
         Entrar
       </Button>
     </Box>

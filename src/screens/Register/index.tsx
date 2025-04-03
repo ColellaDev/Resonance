@@ -4,11 +4,16 @@ import { z } from "zod";
 import { TextField, Button, Box, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const schema = z.object({
-  nick: z.string().min(3, "O nick deve ter pelo menos 3 caracteres"),
-  email: z.string().email("Digite um e-mail válido"),
-  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-});
+const schema = z
+  .object({
+    nick: z.string().min(3, "O nick deve ter pelo menos 3 caracteres"),
+    password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+    confirmPassword: z.string().min(6, "A confirmação deve ter pelo menos 6 caracteres"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não coincidem",
+    path: ["confirmPassword"],
+  });
 
 type FormData = z.infer<typeof schema>;
 
@@ -68,19 +73,19 @@ export function Register() {
         />
 
         <TextField
-          label="E-mail"
-          type="email"
-          {...register("email")}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-
-        <TextField
           label="Senha"
           type="password"
           {...register("password")}
           error={!!errors.password}
           helperText={errors.password?.message}
+        />
+
+        <TextField
+          label="Confirme sua Senha"
+          type="password"
+          {...register("confirmPassword")}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message}
         />
 
         <Button variant="contained" type="submit">
