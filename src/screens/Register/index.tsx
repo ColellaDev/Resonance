@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Box, Typography, Paper } from "@mui/material";
 
 const schema = z.object({
   nick: z.string().min(3, "O nick deve ter pelo menos 3 caracteres"),
@@ -25,13 +25,16 @@ export function Register() {
   };
 
   return (
+     
     <Box
-      component="form"
+      
+      component={Paper} 
       onSubmit={handleSubmit(onSubmit)}
       sx={{
         maxWidth: 400,
         margin: "auto",
         display: "flex",
+        
         flexDirection: "column",
         gap: 2,
         mt: 4,
@@ -40,6 +43,14 @@ export function Register() {
         borderRadius: 2,
       }}
     >
+
+       <Box sx={{ width: 100, height: 100, alignSelf: "center"}}>
+        <img 
+          src="/src/assets/ResonanceLogo.jpg"
+          alt="Logo da Resonance"
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      </Box>
       <Typography variant="h5" textAlign="center">
         Cadastro
       </Typography>
