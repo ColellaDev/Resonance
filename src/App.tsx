@@ -1,10 +1,9 @@
-import { Register } from "./screens/Register"
-//import { Login } from "./screens/Login"
+import { AppRoutes } from "./routes/app.routes"
 
 function App() {
 
   return (
-      <Register/>
+      <AppRoutes/>
   )
 }
 

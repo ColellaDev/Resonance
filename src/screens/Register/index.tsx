@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   nick: z.string().min(3, "O nick deve ter pelo menos 3 caracteres"),
@@ -12,6 +13,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function Register() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -21,7 +24,12 @@ export function Register() {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log("Dados enviados:", data);
+    try {
+        console.log("Usuário cadastrado:", data);
+        navigate("/home");
+      } catch (error) {
+        console.error("Erro ao cadastrar usuário:", error);
+      }
   };
 
   return (
