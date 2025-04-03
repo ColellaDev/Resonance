@@ -25,16 +25,12 @@ export function Register() {
   };
 
   return (
-     
     <Box
-      
-      component={Paper} 
-      onSubmit={handleSubmit(onSubmit)}
+      component={Paper}
       sx={{
         maxWidth: 400,
         margin: "auto",
         display: "flex",
-        
         flexDirection: "column",
         gap: 2,
         mt: 4,
@@ -43,44 +39,46 @@ export function Register() {
         borderRadius: 2,
       }}
     >
-
-       <Box sx={{ width: 100, height: 100, alignSelf: "center"}}>
-        <img 
+      <Box sx={{ width: 100, height: 100, alignSelf: "center" }}>
+        <img
           src="/src/assets/ResonanceLogo.jpg"
           alt="Logo da Resonance"
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
       </Box>
+
       <Typography variant="h5" textAlign="center">
         Cadastro
       </Typography>
-      
-      <TextField
-        label="Nick do Main"
-        {...register("nick")}
-        error={!!errors.nick}
-        helperText={errors.nick?.message}
-      />
 
-      <TextField
-        label="E-mail"
-        type="email"
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
+      <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <TextField
+          label="Nick do Main"
+          {...register("nick")}
+          error={!!errors.nick}
+          helperText={errors.nick?.message}
+        />
 
-      <TextField
-        label="Senha"
-        type="password"
-        {...register("password")}
-        error={!!errors.password}
-        helperText={errors.password?.message}
-      />
+        <TextField
+          label="E-mail"
+          type="email"
+          {...register("email")}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
 
-      <Button variant="contained" type="submit">
-        Cadastrar
-      </Button>
+        <TextField
+          label="Senha"
+          type="password"
+          {...register("password")}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
+
+        <Button variant="contained" type="submit">
+          Cadastrar
+        </Button>
+      </form>
     </Box>
   );
 }

@@ -1,4 +1,5 @@
 import { Register } from "./screens/Register"
+//import { Login } from "./screens/Login"
 
 function App() {
 
@@ -6,5 +7,6 @@ function App() {
       <Register/>
   )
 }
+
 
 export default App
